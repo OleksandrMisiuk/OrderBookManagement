@@ -1,0 +1,8 @@
+u,99,2,ask
+q,best_ask
+o,buy,1
+q,best_ask
+q,best_bid
+o,sell,20
+q,best_bid
+q,size,99
