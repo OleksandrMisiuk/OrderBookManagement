@@ -13,6 +13,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+
+/**
+ * The FileServiceImpl class loads a file and makes actions according to file's commands
+ */
 public class FileServiceImpl implements FileService {
     private List<String> lines;
     private OrderBookService orderBookService;
@@ -29,10 +33,12 @@ public class FileServiceImpl implements FileService {
         }
     }
 
+    /**
+     * The method analyzes strings and executes appropriate command
+     */
     @Override
     public void read() {
         for (String s : lines) {
-            System.out.println(s);
             String[] strings = s.split(",");
             switch (strings[0]) {
                 case "u":
@@ -48,6 +54,11 @@ public class FileServiceImpl implements FileService {
         }
     }
 
+    /**
+     * The method writes the price and the size to a file
+     * @param price
+     * @param size
+     */
     private void write(int price, int size) {
         try (FileWriter fileWriter = new FileWriter(out, true)) {
             PrintWriter printWriter = new PrintWriter(fileWriter);
@@ -58,6 +69,10 @@ public class FileServiceImpl implements FileService {
         }
     }
 
+    /**
+     * The method writes the size to a file
+     * @param size
+     */
     private void write(int size) {
         try (FileWriter fileWriter = new FileWriter(out, true)) {
             PrintWriter printWriter = new PrintWriter(fileWriter);
@@ -78,6 +93,10 @@ public class FileServiceImpl implements FileService {
         }
     }
 
+    /**
+     * The method checks length of command, book's type, gets appropriate data and calls method to write it to a file
+     * @param strings
+     */
     private void query(String[] strings) {
         if (strings.length == 3) {
             int price = Integer.parseInt(strings[2]);
@@ -94,6 +113,10 @@ public class FileServiceImpl implements FileService {
         }
     }
 
+    /**
+     * The method checks book's type and calls appropriate method from orderBookService
+     * @param strings
+     */
     private void order(String[] strings) {
         int size = Integer.parseInt(strings[2]);
         if (strings[1].toLowerCase().equals("buy")) {
